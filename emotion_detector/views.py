@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from skimage import transform
 import numpy as np
 import cv2
-import tensorflow as tf
+
 from cv_api.imp_func import _grab_image, _grab_model, _grab_faces
 
 EMOTIONS_LIST = ["Angry", "Disgust", "Fear", "Happy", "Neutral","Sad","Surprised"]
