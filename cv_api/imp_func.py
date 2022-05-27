@@ -51,5 +51,5 @@ def _grab_faces(image):
     )
     detector = cv2.CascadeClassifier(face_detect_path)
     rects = detector.detectMultiScale(image, scaleFactor=1.3, minNeighbors=2, )
-    ects = [(int(x), int(y), int(x + w), int(y + h)) for (x, y, w, h) in rects]
+    rects = [(int(x), int(y), int(x + w), int(y + h)) for (x, y, w, h) in rects]
     return rects
