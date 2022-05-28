@@ -13,13 +13,13 @@ from pathlib import Path
 import tensorflow as tf
 def _grab_model(app_name):
 
-    with open("{base_path}\\{app}\\model.json".format(
+    with open("{base_path}/{app}/model.json".format(
             base_path=os.path.abspath(os.getcwd()),
             app = app_name), "r") as json_file:
         loaded_model_json = json_file.read()
         loaded_model = model_from_json(loaded_model_json)
 
-    loaded_model.load_weights(os.path.join("{base_path}\\{app}\\model_weights.h5".format(
+    loaded_model.load_weights(os.path.join("{base_path}/{app}/model_weights.h5".format(
             base_path=os.path.abspath(os.getcwd()),
             app = app_name) ))
     loaded_model.make_predict_function()
