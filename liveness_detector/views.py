@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from skimage import transform
 import numpy as np
-import cv2
+from cv2 import resize
 
 
 from cv_api.imp_func import _grab_image, _grab_model, _grab_faces
