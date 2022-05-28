@@ -25,7 +25,7 @@ SECRET_KEY = 'pj^(qk)1w6kez@#r28!9+$4pxhdbj@2cab)bsk5!xt82la9$&)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ai-models.herokuapp.com']
 
 
 # Application definition

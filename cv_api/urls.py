@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.urls import include, re_path
 from django.contrib import admin
 
 import emotion_detector.views
@@ -23,8 +23,8 @@ from django.urls import include, path
 import liveness_detector.views
 
 urlpatterns = [
-    url(r'^gan_detection/detect/$', gan_detector.views.detect),
-    url(r'^emotion_detection/detect/$', emotion_detector.views.detect),
-    url(r'^liveness_detection/detect/$', liveness_detector.views.detect),
+    re_path(r'^gan_detection/detect/$', gan_detector.views.detect),
+    re_path(r'^emotion_detection/detect/$', emotion_detector.views.detect),
+    re_path(r'^liveness_detection/detect/$', liveness_detector.views.detect),
     path(r'^admin/', admin.site.urls),
 ]
