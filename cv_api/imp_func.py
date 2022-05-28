@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 import certifi
 from pathlib import Path
-
+import tensorflow as tf
 def _grab_model(app_name):
 
     with open("{base_path}\\{app}\\model.json".format(
@@ -36,7 +36,7 @@ def _grab_image(stream=None, url=None):
         data = stream.read()
     # convert the image to a NumPy array and then read it into
     # OpenCV format
-    image_1 = imager.img_to_array(Image.open(io.BytesIO(data)))
+    image_1 = tf.keras.preprocessing.image.img_to_array(Image.open(io.BytesIO(data)))
     image_1 = imager.img_to_array(image_1)
 
     image_2 = np.asarray(bytearray(data), dtype="uint8")

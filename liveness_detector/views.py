@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from skimage import transform
 import numpy as np
-from cv2 import resize
+import cv2
 
 
 from cv_api.imp_func import _grab_image, _grab_model, _grab_faces
@@ -30,15 +30,17 @@ def detect(request):
             images = _grab_image(url=url)
         pred = []
         is_grab_face = request.POST.get('is_grab_face', False)
+        print(str(is_grab_face).lower())
         rects = None
         if str(is_grab_face).lower() in ['true', '1']:
             rects = _grab_faces(image_2)
+            print(rects)
             res = []
             for (x, y, w, h) in rects:
                 faces = image_2[y:y + h, x:x + w]
-
+                print('a')
                 resized = cv2.resize(faces, (100, 100))
-
+                print('b')
                 model = _grab_model('liveness_detector')
                 pred = model.predict(resized[np.newaxis, :, :])
 

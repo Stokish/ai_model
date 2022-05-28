@@ -46,7 +46,7 @@ def detect(request):
 
         dif = abs(preds[0] - preds[1])
         is_real = False
-        if dif < 1 and preds[0] + preds[1] > 180:
+        if (preds[0] + preds[1] > 180) or (round(dif) < 1 and preds[0] + preds[1] > 100):
             is_real = True
 
         data.update({
