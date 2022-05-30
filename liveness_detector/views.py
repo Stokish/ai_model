@@ -34,13 +34,13 @@ def detect(request):
         rects = None
         if str(is_grab_face).lower() in ['true', '1']:
             rects = _grab_faces(image_2)
-            print(rects)
+
             res = []
             for (x, y, w, h) in rects:
                 faces = image_2[y:y + h, x:x + w]
-                print('a')
+
                 resized = cv2.resize(faces, (100, 100))
-                print('b')
+
                 model = _grab_model('liveness_detector')
                 pred = model.predict(resized[np.newaxis, :, :])
 
@@ -54,7 +54,6 @@ def detect(request):
                 else:
                     is_live.append(False)
 
-            print(res)
         else:
 
             resized = transform.resize(image_1, (100, 100, 3))
@@ -66,7 +65,6 @@ def detect(request):
             res = (1 - res) * 100
             if res > 60:
                 is_live = True
-            print(res)
 
 
 
