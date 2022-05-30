@@ -78,7 +78,7 @@ def detect(request):
         })
         if rects is not None:
             data.update({
-                "rects": rects
+                "faces": rects
             })
 
     # return a JSON response
