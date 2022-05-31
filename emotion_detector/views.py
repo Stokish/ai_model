@@ -36,24 +36,31 @@ def detect(request):
         rects = _grab_faces(image_2)
         res = []
         emotions = []
-        for (x, y, w, h) in rects:
-            face = image_2[y:y + h, x:x + w]
+        if len(rects):
+            for (x, y, w, h) in rects:
+                face = image_2[y:y + h, x:x + w]
 
-            model = _grab_model('emotion_detector')
+                model = _grab_model('emotion_detector')
 
-            resized = cv2.resize(face, (48, 48))
+                resized = cv2.resize(face, (48, 48))
 
-            prediction = model.predict(resized[np.newaxis, :, :, np.newaxis])
+                prediction = model.predict(resized[np.newaxis, :, :, np.newaxis])
 
-            emotion = EMOTIONS_LIST[np.argmax(prediction)]
+                emotion = EMOTIONS_LIST[np.argmax(prediction)]
 
-            emotions.append(emotion)
+                emotions.append(emotion)
 
-        data.update({
-             "success": True,
-             'faces': rects,
-             'emotions': emotions,
-        })
+            data.update({
+                 "success": True,
+                 'faces': rects,
+                 'emotions': emotions,
+            })
+        else:
+            data.update({
+                'success': False,
+                'error': 'No face detected. Upload another image, with face closer or further from camera'
+            })
+
 
     # return a JSON response
     return JsonResponse(data)

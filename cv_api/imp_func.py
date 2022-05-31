@@ -11,6 +11,7 @@ import numpy as np
 import certifi
 from pathlib import Path
 import tensorflow as tf
+
 def _grab_model(app_name):
 
     with open("{base_path}/{app}/model.json".format(

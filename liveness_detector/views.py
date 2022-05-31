@@ -36,23 +36,31 @@ def detect(request):
             rects = _grab_faces(image_2)
 
             res = []
-            for (x, y, w, h) in rects:
-                faces = image_2[y:y + h, x:x + w]
+            if len(rects):
+                for (x, y, w, h) in rects:
+                    faces = image_2[y:y + h, x:x + w]
 
-                resized = cv2.resize(faces, (100, 100))
+                    resized = cv2.resize(faces, (100, 100))
 
-                model = _grab_model('liveness_detector')
-                pred = model.predict(resized[np.newaxis, :, :])
+                    model = _grab_model('liveness_detector')
+                    pred = model.predict(resized[np.newaxis, :, :])
 
-                res.append(pred[0][0])
-            is_live = []
-            for i in range(len(res)):
-                print(res[i])
-                res[i] = (1 - res[i]) * 100
-                if res[i] > 60:
-                    is_live.append(True)
-                else:
-                    is_live.append(False)
+                    res.append(pred[0][0])
+                is_live = []
+                for i in range(len(res)):
+                    print(res[i])
+                    res[i] = (1 - res[i]) * 100
+                    if res[i] > 60:
+                        is_live.append(True)
+                    else:
+                        is_live.append(False)
+            else:
+                data.update({
+                    'success': False,
+                    'error': 'No face detected. Upload another image, with face closer or further from camera. Or '
+                             'change is_grab_face to False '
+                })
+                return JsonResponse(data)
 
         else:
 
